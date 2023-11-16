@@ -1,0 +1,16 @@
+{
+  "name": "telegram",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/node-telegram-bot-api": "^0.63.1",
+    "discord.js": "^14.14.1",
+    "node-telegram-bot-api": "^0.64.0"
+  }
+}
