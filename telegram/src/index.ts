@@ -12,15 +12,15 @@ const bot = new TelegramBot(process.env.TOKEN, { polling: true })
 const webhook = new WebhookClient({ url: config.webhook })
 
 bot.on("message", async (msg) => {
-	const pfp_ids = await bot.getUserProfilePhotos(msg.from!!.id);
-	const pfp_file = await bot.getFile(pfp_ids.photos[0][0].file_id);
-
 	let pfp;
-
-	if (pfp_file == undefined)
+	const pfp_ids = await bot.getUserProfilePhotos(msg.from!!.id);
+	if (pfp_ids.total_count == 0)
 		pfp == `https://source.boringavatars.com/marble/120/${msg.from?.first_name}`;
 	else
+	{
+		const pfp_file = await bot.getFile(pfp_ids.photos[0][0].file_id);
 		pfp = get_bot_resource(pfp_file.file_path!!)
+	}
 
 	if (msg.sticker)
 	{
@@ -37,6 +37,9 @@ bot.on("message", async (msg) => {
 	}
 	else
 	{
+		if (msg.from?.id == 6789015514) // bots id
+			return;
+
 		webhook.send({
 			content: msg.text,
 			username: `${msg.from?.username} (${msg.from?.id})`,
