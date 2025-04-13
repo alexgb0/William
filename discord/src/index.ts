@@ -10,7 +10,7 @@ client.on(Events.MessageCreate, async msg => {
 	if (msg.channelId != config.channel_discord)
 		return;
 
-	if (msg.author.id == "1090003488664199279") // don't send messages to itself.
+	if (msg.author.id == config.bot_id) // don't send messages to itself.
 		return;
 
 	const mentions = get_user_from_mention(msg.content);
